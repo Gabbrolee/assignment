@@ -17,7 +17,7 @@ class DataBloc extends Bloc<AppEvent, AppState<String>> {
     if (list.isEmpty) {
       emit(LoadingAppState());
     } else {
-      emit(LoadingMoreAppState());
+      emit(LoadingMoreAppState(list));
     }
     try {
       List<String> response = await service.getData();

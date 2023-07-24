@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:scrolling_list/bloc/string_bloc.dart';
+import 'package:scrolling_list/bloc/data_bloc.dart';
 import 'package:scrolling_list/page/scrolling_list.dart';
 
 void main() {

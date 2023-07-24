@@ -5,7 +5,9 @@ class IdleAppState<T> extends AppState<T> {}
 
 class LoadingAppState<T> extends AppState<T> {}
 
-class LoadingMoreAppState<T> extends AppState<T> {}
+class LoadingMoreAppState<T> extends SuccessListAppState<T> {
+  LoadingMoreAppState([super.data]);
+}
 
 class SuccessListAppState<T> extends AppState<T> {
   final List<T> data;
