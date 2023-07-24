@@ -5,12 +5,7 @@ class IdleAppState<T> extends AppState<T> {}
 
 class LoadingAppState<T> extends AppState<T> {}
 
-class EmptyAppState<T> extends AppState<T> {}
-
-class SuccessAppState<T> extends AppState<T> {
-  final T? data;
-  SuccessAppState([this.data]);
-}
+class LoadingMoreAppState<T> extends AppState<T> {}
 
 class SuccessListAppState<T> extends AppState<T> {
   final List<T> data;
@@ -27,4 +22,4 @@ class FailureAppState<T> extends AppState<T> {
 // events
 class AppEvent {}
 
-class FetchProductEvent extends AppEvent {}
+class FetchEvent extends AppEvent {}

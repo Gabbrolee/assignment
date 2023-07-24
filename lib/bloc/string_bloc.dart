@@ -1,34 +1,31 @@
-
-
-
 import 'package:bloc/bloc.dart';
 
 import '../model/app_state.dart';
-import '../service/string_list.dart';
+import '../service/data_service.dart';
 
-class StringBloc extends Bloc<AppEvent, AppState<List<String>>> {
-  final StringListService service;
-  StringBloc([StringListService? stringService])
-      : service = stringService ?? StringListService(),
+class DataBloc extends Bloc<AppEvent, AppState<String>> {
+  final DataService service;
+  DataBloc([DataService? stringService])
+      : service = stringService ?? DataService(),
         super(IdleAppState()) {
-    on<FetchProductEvent>(fetchString);
+    on<FetchEvent>(fetchData);
   }
 
-  Future fetchString(
-      FetchProductEvent event,
-      Emitter<AppState<List<String>>> emit,
-      ) async {
-    if (state is! SuccessListAppState<List<String>>) emit(LoadingAppState());
+  List<String> list = [];
+
+  Future fetchData(FetchEvent event, Emitter<AppState<String>> emit) async {
+    if (list.isEmpty) {
+      emit(LoadingAppState());
+    } else {
+      emit(LoadingMoreAppState());
+    }
     try {
-      List<String> stringList = await service.getStringList();
-      if (stringList.isEmpty) {
-        emit(EmptyAppState());
-        return;
-      }
-      emit(SuccessListAppState(stringList.cast<List<String>>()));
-      return stringList;
+      List<String> response = await service.getData();
+      list.addAll(response);
+      emit(SuccessListAppState(list));
+      return response;
     } catch (error) {
-      emit(FailureAppState(error));
+      if (list.isEmpty) emit(FailureAppState(error));
       return;
     }
   }
